@@ -82,6 +82,8 @@ Vagrant.configure("2") do |config|
   end
 
   # install global node modules
-  config.vm.provision :shell, :inline => "npm install -g yo grunt-cli bower"
+  config.vm.provision :shell, :inline => "npm install -g yo grunt-cli bower supervisor http-server"
+
+  
 
 end
