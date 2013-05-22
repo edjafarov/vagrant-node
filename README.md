@@ -6,4 +6,4 @@ First, [download VirtualBox](https://www.virtualbox.org/wiki/Downloads) and inst
 
 [Download a Vagrant installer](http://downloads.vagrantup.com/) for Mac OS, Windows, and Linux and install it.
 
-To build the VM, run `vagrant up`.
+To build the VM, run `init.sh`.
