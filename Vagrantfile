@@ -9,10 +9,6 @@ Vagrant.configure("2") do |config|
   # VM name
   config.vm.hostname = "webapp"
 
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
-
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "precise64"
 
@@ -23,6 +19,11 @@ Vagrant.configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
+  
+  # redis server port
+  config.vm.network :forwarded_port, guest: 6379, host: 6379
+
+  # local web server port
   config.vm.network :forwarded_port, guest: 8000, host: 8000
 
   # Create a private network, which allows host-only access to the machine
@@ -65,7 +66,7 @@ Vagrant.configure("2") do |config|
   #   chef.json = { :mysql_password => "foo" }
   # end
 
-  # Update installed packages before installing additional software
+  # Update the list of available packages, use sudo apt-get upgrade -y to actually do the upgrades
   config.vm.provision :shell, :inline => "sudo apt-get update -y"
 
   # Install packages
@@ -73,18 +74,20 @@ Vagrant.configure("2") do |config|
     chef.json = {
       "nodejs" => {
         "version" => "0.10.7"
+      },
+      "redisio" => {
+        "version" => "2.6.13"
       }
     }
 
     chef.add_recipe "git"
     chef.add_recipe "nodejs"
-    chef.add_recipe "redis::server"
+    chef.add_recipe "redisio::install"
+    chef.add_recipe "redisio::enable"
 
   end
 
   # install global node modules
   config.vm.provision :shell, :inline => "npm install -g yo grunt-cli bower supervisor http-server"
-
-
 
 end
