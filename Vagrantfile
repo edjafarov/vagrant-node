@@ -78,12 +78,13 @@ Vagrant.configure("2") do |config|
 
     chef.add_recipe "git"
     chef.add_recipe "nodejs"
+    chef.add_recipe "redis::server"
 
   end
 
   # install global node modules
   config.vm.provision :shell, :inline => "npm install -g yo grunt-cli bower supervisor http-server"
 
-  
+
 
 end
