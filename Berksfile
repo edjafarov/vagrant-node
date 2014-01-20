@@ -1,3 +1,3 @@
 cookbook "git"
 cookbook "nodejs"
-cookbook "redisio"
+cookbook "vim"
